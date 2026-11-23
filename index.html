@@ -42,7 +42,6 @@
             color: #0F172A;
             -webkit-tap-highlight-color: transparent;
         }
-        /* 세련된 모빌리티 스타일 지도 그리드 */
         .mobility-map-bg {
             background-color: #F1F5F9;
             background-image: 
@@ -51,7 +50,6 @@
                 linear-gradient(to bottom, rgba(203, 213, 225, 0.35) 1px, transparent 1px);
             background-size: 24px 24px, 48px 48px, 48px 48px;
         }
-        /* 핀 플로팅 애니메이션 */
         @keyframes pinFloat {
             0%, 100% { transform: translate(-50%, -100%); }
             50% { transform: translate(-50%, -112%); }
@@ -59,7 +57,6 @@
         .pin-float {
             animation: pinFloat 1.8s infinite ease-in-out;
         }
-        /* 스켈레톤 반짝임 애니메이션 */
         @keyframes shimmer {
             0% { background-position: -200% 0; }
             100% { background-position: 200% 0; }
@@ -69,7 +66,6 @@
             background-size: 200% 100%;
             animation: shimmer 1.5s infinite linear;
         }
-        /* 부드러운 전환 */
         .fade-slide-in {
             animation: fadeSlideIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -77,7 +73,6 @@
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        /* 영수증 톱니 하단 효과 */
         .receipt-edge {
             background-image: radial-gradient(circle at 10px 10px, transparent 6px, #ffffff 6.5px);
             background-size: 20px 12px;
@@ -87,12 +82,11 @@
 </head>
 <body class="antialiased min-h-screen flex flex-col selection:bg-forest-100 selection:text-forest-900">
 
-    <!-- 상단 GNB 헤더 -->
+    <!-- 상단 GNB 헤더 (방문자 키 입력 불필요 — 서비스 라이브 상태 표시) -->
     <header class="bg-white/90 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-30">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-2xl bg-forest-600 text-white flex items-center justify-center shadow-sm shadow-forest-600/20">
-                    <!-- 리사이클 & 위치 SVG 아이콘 -->
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
@@ -100,26 +94,17 @@
                 <div>
                     <div class="flex items-center gap-2">
                         <h1 class="text-base sm:text-lg font-extrabold tracking-tight text-slate-900">원주시 대형폐기물 스마트 신고</h1>
-                        <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-forest-50 text-forest-700 border border-forest-200/70">BETA</span>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-forest-50 text-forest-700 border border-forest-200/70">LIVE</span>
                     </div>
                     <p class="text-xs text-slate-500 hidden sm:block">지도로 배출 위치를 찍고 AI로 수수료를 확인해 바로 접수하세요</p>
                 </div>
             </div>
             
-            <div class="flex items-center gap-2.5">
-                <!-- 연동 상태 배지 -->
-                <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-100/80 text-slate-600 border border-slate-200/60">
-                    <span class="w-2 h-2 rounded-full bg-amber-400" id="statusDot"></span>
-                    <span id="statusText">시뮬레이션 모드</span>
+            <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-forest-50/80 text-forest-800 border border-forest-200/70">
+                    <span class="w-2 h-2 rounded-full bg-forest-500 animate-pulse" id="statusDot"></span>
+                    <span id="statusText">원주시 AI 분석 연동됨</span>
                 </div>
-                <!-- API 설정 버튼 -->
-                <button onclick="openSettingsModal()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs sm:text-sm font-semibold shadow-2xs transition active:scale-[0.98]">
-                    <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span>API 설정</span>
-                </button>
             </div>
         </div>
     </header>
@@ -127,7 +112,7 @@
     <!-- 메인 영역 -->
     <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6">
 
-        <!-- 상단 뷰 전환 탭 (세그먼트 컨트롤) -->
+        <!-- 상단 뷰 전환 탭 -->
         <div class="flex items-center justify-between flex-wrap gap-3">
             <div class="inline-flex p-1.5 bg-slate-200/70 rounded-2xl w-full sm:w-auto">
                 <button id="tabBtnReport" onclick="switchTab('report')" class="flex-1 sm:flex-initial sm:w-44 py-2.5 px-4 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2 bg-white text-slate-900 shadow-xs">
@@ -159,31 +144,21 @@
             <!-- 3단계 진행 표시기 (Stepper) -->
             <div class="bg-white rounded-2xl border border-slate-200/80 shadow-soft p-4 sm:px-8 sm:py-5">
                 <div class="flex items-center justify-between max-w-2xl mx-auto relative">
-                    <!-- 연결선 배경 -->
                     <div class="absolute left-8 right-8 top-4 h-0.5 bg-slate-200 -z-0"></div>
                     <div id="stepperProgressLine" class="absolute left-8 top-4 h-0.5 bg-forest-600 transition-all duration-300 -z-0" style="width: 0%;"></div>
 
-                    <!-- Step 1 -->
                     <div class="relative z-10 flex flex-col items-center gap-1.5">
-                        <div id="stepCircle1" class="w-8 h-8 rounded-full bg-forest-600 text-white font-extrabold text-xs flex items-center justify-center ring-4 ring-forest-50 transition-all">
-                            1
-                        </div>
+                        <div id="stepCircle1" class="w-8 h-8 rounded-full bg-forest-600 text-white font-extrabold text-xs flex items-center justify-center ring-4 ring-forest-50 transition-all">1</div>
                         <span id="stepLabel1" class="text-xs sm:text-sm font-bold text-slate-900">1. 위치 지정</span>
                     </div>
 
-                    <!-- Step 2 -->
                     <div class="relative z-10 flex flex-col items-center gap-1.5">
-                        <div id="stepCircle2" class="w-8 h-8 rounded-full bg-white border-2 border-slate-300 text-slate-400 font-extrabold text-xs flex items-center justify-center transition-all">
-                            2
-                        </div>
+                        <div id="stepCircle2" class="w-8 h-8 rounded-full bg-white border-2 border-slate-300 text-slate-400 font-extrabold text-xs flex items-center justify-center transition-all">2</div>
                         <span id="stepLabel2" class="text-xs sm:text-sm font-semibold text-slate-400">2. 품목·AI 분석</span>
                     </div>
 
-                    <!-- Step 3 -->
                     <div class="relative z-10 flex flex-col items-center gap-1.5">
-                        <div id="stepCircle3" class="w-8 h-8 rounded-full bg-white border-2 border-slate-300 text-slate-400 font-extrabold text-xs flex items-center justify-center transition-all">
-                            3
-                        </div>
+                        <div id="stepCircle3" class="w-8 h-8 rounded-full bg-white border-2 border-slate-300 text-slate-400 font-extrabold text-xs flex items-center justify-center transition-all">3</div>
                         <span id="stepLabel3" class="text-xs sm:text-sm font-semibold text-slate-400">3. 신고 접수</span>
                     </div>
                 </div>
@@ -192,7 +167,7 @@
             <!-- 2단 메인 그리드 -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                 
-                <!-- 좌측 컬럼: 위치 지정 카드 (7 cols) -->
+                <!-- 좌측 컬럼: 위치 지정 카드 -->
                 <section class="lg:col-span-7 bg-white rounded-2xl border border-slate-200/80 shadow-soft overflow-hidden">
                     <div class="p-5 sm:p-6 border-b border-slate-100 flex items-center justify-between gap-2">
                         <div class="flex items-center gap-2.5">
@@ -214,9 +189,7 @@
 
                     <!-- 원주시 주요 동/거점 퀵 버튼 -->
                     <div class="px-5 py-3 bg-slate-50/70 border-b border-slate-100">
-                        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar" id="quickLocationButtons">
-                            <!-- JS 렌더링 -->
-                        </div>
+                        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar" id="quickLocationButtons"></div>
                     </div>
 
                     <!-- 지도 영역 + 플로팅 버튼 -->
@@ -226,17 +199,13 @@
 
                         <!-- 인터랙티브 폴백 지도 -->
                         <div id="fallbackMapContainer" class="w-full h-full mobility-map-bg relative cursor-crosshair overflow-hidden">
-                            <!-- 원주천 및 간선도로 벡터 그래픽 -->
                             <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 600 380" preserveAspectRatio="none">
-                                <!-- 원주천 -->
                                 <path d="M 390,0 Q 345,130 365,220 T 330,380" fill="none" stroke="#BAE6FD" stroke-width="22" stroke-linecap="round"/>
-                                <!-- 주요 도로망 -->
                                 <path d="M 0,195 Q 260,170 600,205" fill="none" stroke="#FFFFFF" stroke-width="12"/>
                                 <path d="M 0,195 Q 260,170 600,205" fill="none" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="6 4"/>
                                 <path d="M 185,0 L 245,380" fill="none" stroke="#FFFFFF" stroke-width="10"/>
                                 <path d="M 70,65 L 530,310" fill="none" stroke="#FFFFFF" stroke-width="7"/>
                                 
-                                <!-- 거점 뱃지 스타일 라벨 -->
                                 <g transform="translate(115, 115)">
                                     <rect x="0" y="0" width="96" height="22" rx="11" fill="#FFFFFF" stroke="#E2E8F0"/>
                                     <text x="48" y="14" text-anchor="middle" fill="#475569" font-size="10" font-weight="700">무실동·원주시청</text>
@@ -259,13 +228,11 @@
                                 </g>
                             </svg>
 
-                            <!-- 상단 안내 칩 -->
                             <div class="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-sm px-3.5 py-2 rounded-full shadow-soft border border-slate-200/80 text-xs font-semibold text-slate-700 pointer-events-none flex items-center gap-1.5">
                                 <span class="w-2 h-2 rounded-full bg-forest-500 animate-ping"></span>
                                 <span>지도를 터치해 핀 위치를 지정하세요</span>
                             </div>
 
-                            <!-- 커스텀 모빌리티 핀 -->
                             <div id="fallbackPin" class="absolute pin-float pointer-events-none transition-all duration-200" style="left: 28%; top: 42%;">
                                 <div class="flex flex-col items-center">
                                     <div class="bg-slate-900 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-float whitespace-nowrap mb-1 flex items-center gap-1">
@@ -282,7 +249,7 @@
                             </div>
                         </div>
 
-                        <!-- [편의기능 1] 플로팅 '현재 위치(GPS)로 핀 이동' 버튼 -->
+                        <!-- 플로팅 '현재 위치(GPS)로 핀 이동' 버튼 -->
                         <button type="button" id="gpsMoveBtn" onclick="moveToCurrentGPS()" 
                                 class="absolute bottom-4 right-4 z-20 inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white hover:bg-slate-50 active:scale-95 text-slate-800 border border-slate-200/90 shadow-float text-xs font-bold transition">
                             <svg id="gpsIcon" class="w-4 h-4 text-forest-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
@@ -294,7 +261,6 @@
 
                     <!-- 하단 좌표 정보 + 중복 신고 경고 + 위치 메모 -->
                     <div class="p-5 sm:p-6 space-y-4">
-                        <!-- [편의기능 3] 인근 30m 이내 중복 신고 알림 배너 -->
                         <div id="duplicateWarningBanner" class="hidden rounded-2xl bg-amber-50 border border-amber-200/90 p-3.5 flex items-start gap-3 fade-slide-in">
                             <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 mt-0.5">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
@@ -307,7 +273,6 @@
                             </div>
                         </div>
 
-                        <!-- 선택 좌표 요약 박스 -->
                         <div class="flex items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70">
                             <div class="flex items-center gap-3">
                                 <div class="w-9 h-9 rounded-xl bg-white border border-slate-200/80 text-forest-600 flex items-center justify-center shrink-0 shadow-2xs">
@@ -325,7 +290,6 @@
                             </span>
                         </div>
 
-                        <!-- 상세 배출 위치 입력 -->
                         <div>
                             <label for="locationMemo" class="block text-xs font-bold text-slate-700 mb-1.5">
                                 상세 배출 위치 / 건물·도로명 메모 <span class="text-rose-500">*</span>
@@ -336,7 +300,7 @@
                     </div>
                 </section>
 
-                <!-- 우측 컬럼: 품목 분석 및 신고 접수 카드 (5 cols) -->
+                <!-- 우측 컬럼: 품목 분석 및 신고 접수 카드 -->
                 <section class="lg:col-span-5 bg-white rounded-2xl border border-slate-200/80 shadow-soft p-5 sm:p-6 space-y-5">
                     <div class="flex items-center gap-2.5">
                         <div class="w-8 h-8 rounded-xl bg-forest-50 text-forest-600 flex items-center justify-center">
@@ -358,7 +322,7 @@
                         <label for="wasteImageInput" id="imageUploadPlaceholder" class="group flex flex-col items-center justify-center w-full h-36 border-2 border-dashed border-slate-200 hover:border-forest-500 rounded-2xl cursor-pointer bg-slate-50/70 hover:bg-forest-50/30 transition p-4 text-center">
                             <div class="w-11 h-11 rounded-2xl bg-white shadow-2xs border border-slate-100 flex items-center justify-center text-forest-600 group-hover:scale-105 transition mb-2">
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
                             </div>
@@ -395,7 +359,7 @@
                         </div>
                     </div>
 
-                    <!-- [편의기능 2] '무상수거 가능 품목' 자동 안내 배지 -->
+                    <!-- 무상수거 가능 품목 자동 안내 배지 -->
                     <div id="freeApplianceBanner" class="hidden rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 p-4 flex items-start gap-3 fade-slide-in">
                         <div class="w-9 h-9 rounded-xl bg-forest-600 text-white flex items-center justify-center shrink-0 shadow-2xs">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
@@ -421,7 +385,7 @@
                         <span>AI 품목 분석 및 원주시 수수료 확인</span>
                     </button>
 
-                    <!-- [디자인 업그레이드 3] 스켈레톤 로딩 UI -->
+                    <!-- 스켈레톤 로딩 UI -->
                     <div id="analysisSkeleton" class="hidden rounded-2xl border border-slate-200/90 bg-white p-4 space-y-3.5 fade-slide-in">
                         <div class="flex items-center gap-2.5 text-forest-700">
                             <svg class="w-4 h-4 animate-spin text-forest-600" fill="none" viewBox="0 0 24 24">
@@ -439,11 +403,11 @@
                         </div>
                     </div>
 
-                    <!-- 분석 결과 카드 (큰 금액 강조 디자인) -->
+                    <!-- 분석 결과 카드 -->
                     <div id="analysisResultCard" class="hidden rounded-2xl bg-forest-50/70 border border-forest-200/90 p-4 sm:p-5 space-y-4 fade-slide-in">
                         <div class="flex items-start justify-between gap-3">
                             <div class="space-y-1">
-                                <span id="analysisSourceBadge" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-forest-600 text-white">원주시 기준표</span>
+                                <span id="analysisSourceBadge" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-forest-600 text-white">Gemini AI 분석</span>
                                 <h3 id="resultCategoryName" class="text-base font-extrabold text-slate-900">책상 / 식탁</h3>
                             </div>
                             <div class="text-right shrink-0">
@@ -462,7 +426,6 @@
                             <p id="resultGuide" class="leading-relaxed text-slate-600"></p>
                         </div>
 
-                        <!-- 확정 품목 및 수수료 직접 조정 -->
                         <div class="grid grid-cols-2 gap-2.5">
                             <div>
                                 <label class="block text-[11px] font-bold text-slate-500 mb-1">확정 품목명</label>
@@ -555,11 +518,10 @@
         </div>
     </main>
 
-    <!-- [편의기능 4] 디지털 배출 신고 접수증 모달 -->
+    <!-- 디지털 배출 신고 접수증 모달 -->
     <div id="receiptModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
         <div class="max-w-md w-full fade-slide-in">
             <div class="bg-white rounded-t-3xl shadow-2xl border border-slate-200/80 overflow-hidden">
-                <!-- 상단 승인 헤더 -->
                 <div class="bg-forest-600 px-6 py-6 text-white text-center relative">
                     <button onclick="closeReceiptModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center transition">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
@@ -575,7 +537,6 @@
                     <h3 class="text-xl font-extrabold mt-0.5">대형폐기물 배출 신고 접수증</h3>
                 </div>
 
-                <!-- 영수증 본문 -->
                 <div class="p-6 space-y-4">
                     <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 text-center">
                         <span class="text-[11px] font-bold text-slate-400 block">접수번호 (배출필증 표기용)</span>
@@ -589,7 +550,7 @@
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="text-slate-500 font-medium">접수 시각</span>
-                            <span id="receiptDateText" class="font-bold text-slate-800">2026.11.23 13:39</span>
+                            <span id="receiptDateText" class="font-bold text-slate-800">2026.11.23 14:11</span>
                         </div>
                         <div class="flex justify-between items-start gap-4">
                             <span class="text-slate-500 font-medium shrink-0">배출 위치</span>
@@ -626,57 +587,18 @@
         </div>
     </div>
 
-    <!-- API 설정 모달 -->
-    <div id="settingsModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-200 overflow-hidden fade-slide-in">
-            <div class="p-5 border-b border-slate-100 flex items-center justify-between">
-                <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-forest-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                    </svg>
-                    <span>외부 API 연동 설정</span>
-                </h3>
-                <button onclick="closeSettingsModal()" class="w-8 h-8 rounded-xl hover:bg-slate-100 text-slate-500 flex items-center justify-center">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <div class="p-5 space-y-4">
-                <p class="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3.5 rounded-xl border border-slate-200/80">
-                    API 키가 없어도 <strong>원주시 스마트 지도 및 내장 수수료 분류 엔진</strong>으로 모든 기능을 즉시 사용할 수 있습니다. 실제 키를 입력하면 카카오맵과 Gemini AI가 활성화됩니다.
-                </p>
-
-                <div>
-                    <label for="kakaoKeyInput" class="block text-xs font-bold text-slate-700 mb-1.5">Kakao Map JavaScript API 키</label>
-                    <input type="text" id="kakaoKeyInput" placeholder="JavaScript 앱 키 입력" 
-                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono focus:outline-none focus:border-forest-600">
-                </div>
-
-                <div>
-                    <label for="geminiKeyInput" class="block text-xs font-bold text-slate-700 mb-1.5">Google Gemini API 키</label>
-                    <input type="password" id="geminiKeyInput" placeholder="AIzaSy..." 
-                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono focus:outline-none focus:border-forest-600">
-                </div>
-            </div>
-            <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-2">
-                <button onclick="resetApiKeys()" class="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-200 transition">초기화</button>
-                <button onclick="saveApiKeys()" class="px-4 py-2 rounded-xl bg-forest-600 hover:bg-forest-700 text-white text-xs font-bold shadow-xs transition">저장 및 적용</button>
-            </div>
-        </div>
-    </div>
-
     <!-- 토스트 알림 컨테이너 -->
     <div id="toastContainer" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 pointer-events-none w-max max-w-[92vw]"></div>
 
     <script>
         /**
-         * 1. 상수 및 원주시 데이터 정의
+         * [설정] 카카오맵 JavaScript 앱 키
+         * - 플랫폼 > Web 사이트 도메인에 배포된 Vercel 주소(예: https://your-project.vercel.app)를 등록하면 모든 방문자에게 카카오맵이 표시됩니다.
          */
+        const DEFAULT_KAKAO_MAP_KEY = '097d5cac44b38f6b668574df06b36e6e';
+
         const STORAGE_KEYS = {
-            REPORTS: 'wonju_waste_reports_v2',
-            KAKAO_KEY: 'wonju_kakao_api_key',
-            GEMINI_KEY: 'wonju_gemini_api_key'
+            REPORTS: 'wonju_waste_reports_v2'
         };
 
         const WONJU_LOCATIONS = [
@@ -687,7 +609,6 @@
             { name: '원주역 주변', lat: 37.3224, lng: 127.9118, address: '원주시 무실동 북원로 원주역 광장 부근', mapX: 19, mapY: 71 }
         ];
 
-        // 대형 폐가전 무상수거 감지 키워드
         const FREE_APPLIANCE_KEYWORDS = ['냉장고', '세탁기', '에어컨', 'tv', '티비', '김치냉장고', '건조기', '폐가전'];
 
         const WONJU_WASTE_CATALOG = [
@@ -743,12 +664,14 @@
         };
 
         /**
-         * 2. 초기화
+         * 1. 초기화
          */
         window.onload = function() {
             renderQuickLocationButtons();
             initFallbackMapInteractions();
-            loadSavedApiKeys();
+            if (DEFAULT_KAKAO_MAP_KEY && DEFAULT_KAKAO_MAP_KEY.trim() !== '') {
+                loadKakaoMapScript(DEFAULT_KAKAO_MAP_KEY.trim());
+            }
             renderHistoryList();
             updateHistoryBadge();
             checkNearbyDuplicateReports(appState.lat, appState.lng);
@@ -756,7 +679,7 @@
         };
 
         /**
-         * 3. 3단계 진행 표시기(Stepper) 제어
+         * 2. 3단계 진행 표시기(Stepper)
          */
         function updateStepperState() {
             const hasLocationMemo = document.getElementById('locationMemo').value.trim().length > 0;
@@ -789,7 +712,7 @@
         }
 
         /**
-         * 4. 토스트 & 탭 & 모달 유틸리티
+         * 3. 토스트 & 탭
          */
         function showToast(message, type = 'info') {
             const container = document.getElementById('toastContainer');
@@ -833,78 +756,10 @@
             }
         }
 
-        function openSettingsModal() {
-            document.getElementById('kakaoKeyInput').value = localStorage.getItem(STORAGE_KEYS.KAKAO_KEY) || '';
-            document.getElementById('geminiKeyInput').value = localStorage.getItem(STORAGE_KEYS.GEMINI_KEY) || '';
-            const modal = document.getElementById('settingsModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function closeSettingsModal() {
-            const modal = document.getElementById('settingsModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
         /**
-         * 5. API 설정 및 카카오맵 연동
+         * 4. 카카오맵 연동 로직
          */
-        function loadSavedApiKeys() {
-            const kakaoKey = localStorage.getItem(STORAGE_KEYS.KAKAO_KEY);
-            const geminiKey = localStorage.getItem(STORAGE_KEYS.GEMINI_KEY);
-            updateApiStatusUI(kakaoKey, geminiKey);
-            if (kakaoKey) loadKakaoMapScript(kakaoKey);
-        }
-
-        function saveApiKeys() {
-            const kakaoKey = document.getElementById('kakaoKeyInput').value.trim();
-            const geminiKey = document.getElementById('geminiKeyInput').value.trim();
-
-            if (kakaoKey) localStorage.setItem(STORAGE_KEYS.KAKAO_KEY, kakaoKey);
-            else localStorage.removeItem(STORAGE_KEYS.KAKAO_KEY);
-
-            if (geminiKey) localStorage.setItem(STORAGE_KEYS.GEMINI_KEY, geminiKey);
-            else localStorage.removeItem(STORAGE_KEYS.GEMINI_KEY);
-
-            updateApiStatusUI(kakaoKey, geminiKey);
-            closeSettingsModal();
-            showToast('API 연동 설정이 저장되었습니다.', 'success');
-
-            if (kakaoKey && !appState.isKakaoLoaded) loadKakaoMapScript(kakaoKey);
-            else if (!kakaoKey) switchToFallbackMap();
-        }
-
-        function resetApiKeys() {
-            localStorage.removeItem(STORAGE_KEYS.KAKAO_KEY);
-            localStorage.removeItem(STORAGE_KEYS.GEMINI_KEY);
-            document.getElementById('kakaoKeyInput').value = '';
-            document.getElementById('geminiKeyInput').value = '';
-            updateApiStatusUI('', '');
-            switchToFallbackMap();
-            showToast('API 설정이 초기화되었습니다.', 'info');
-        }
-
-        function updateApiStatusUI(kakaoKey, geminiKey) {
-            const dot = document.getElementById('statusDot');
-            const text = document.getElementById('statusText');
-
-            if (kakaoKey || geminiKey) {
-                dot.className = 'w-2 h-2 rounded-full bg-forest-500';
-                const list = [];
-                if (kakaoKey) list.push('Kakao');
-                if (geminiKey) list.push('Gemini');
-                text.textContent = `실연동 (${list.join('+')})`;
-            } else {
-                dot.className = 'w-2 h-2 rounded-full bg-amber-400';
-                text.textContent = '시뮬레이션 모드';
-            }
-        }
-
         function loadKakaoMapScript(appKey) {
-            const existingScript = document.getElementById('kakao-map-sdk');
-            if (existingScript) existingScript.remove();
-
             const script = document.createElement('script');
             script.id = 'kakao-map-sdk';
             script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${appKey}&autoload=false`;
@@ -915,10 +770,7 @@
                     switchToFallbackMap();
                 }
             };
-            script.onerror = () => {
-                showToast('Kakao API 키 또는 도메인 확인이 필요하여 기본 지도를 사용합니다.', 'warning');
-                switchToFallbackMap();
-            };
+            script.onerror = () => switchToFallbackMap();
             document.head.appendChild(script);
         }
 
@@ -942,7 +794,7 @@
                 appState.kakaoMapInstance = map;
                 appState.kakaoMarkerInstance = marker;
                 appState.isKakaoLoaded = true;
-                document.getElementById('mapModeTag').innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-forest-600"></span>Kakao Map 실연동';
+                document.getElementById('mapModeTag').innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-forest-600"></span>Kakao Map 연동됨';
             } catch (e) {
                 switchToFallbackMap();
             }
@@ -956,7 +808,7 @@
         }
 
         /**
-         * 6. 위치 선택, GPS 이동 및 인근 30m 중복 신고 감지
+         * 5. 위치 선택, GPS 이동 및 인근 30m 중복 신고 감지
          */
         function renderQuickLocationButtons() {
             const container = document.getElementById('quickLocationButtons');
@@ -987,7 +839,6 @@
             updateStepperState();
         }
 
-        // [편의기능 1] 현재 위치(GPS)로 핀 이동
         function moveToCurrentGPS() {
             const btn = document.getElementById('gpsMoveBtn');
             const icon = document.getElementById('gpsIcon');
@@ -997,7 +848,7 @@
             const fallbackToWonjuCityHall = (reasonMsg) => {
                 icon.classList.remove('animate-spin');
                 btn.disabled = false;
-                selectPresetLocation(0); // 원주시청(37.3422, 127.9202)
+                selectPresetLocation(0);
                 showToast(reasonMsg || '위치 권한을 확인할 수 없어 원주시청 기본 좌표로 이동했습니다.', 'info');
             };
 
@@ -1014,11 +865,9 @@
                     const userLat = pos.coords.latitude;
                     const userLng = pos.coords.longitude;
 
-                    // 원주시 영역 내 좌표인지 가볍게 확인 후 핀 반영
                     updateCoordinates(userLat, userLng, '현재 GPS 위치');
                     document.getElementById('locationMemo').value = `원주시 현재 GPS 위치 (위도 ${userLat.toFixed(4)}, 경도 ${userLng.toFixed(4)})`;
 
-                    // 폴백 지도 핀 위치 근사 매핑
                     const pctX = Math.max(10, Math.min(90, 50 + ((userLng - 127.9202) / 0.035) * 50));
                     const pctY = Math.max(12, Math.min(88, 50 - ((userLat - 37.3422) / 0.025) * 50));
                     const pin = document.getElementById('fallbackPin');
@@ -1067,11 +916,9 @@
             document.getElementById('coordDisplay').textContent = `위도 ${appState.lat.toFixed(4)}, 경도 ${appState.lng.toFixed(4)}`;
             document.getElementById('selectedDistrictBadge').textContent = districtLabel;
 
-            // 반경 30m 이내 중복 신고 검사
             checkNearbyDuplicateReports(appState.lat, appState.lng);
         }
 
-        // [편의기능 3] Haversine 공식 기반 반경 30m 이내 중복 신고 감지
         function calculateDistanceMeters(lat1, lon1, lat2, lon2) {
             const R = 6371000;
             const toRad = (deg) => (deg * Math.PI) / 180;
@@ -1101,7 +948,7 @@
         }
 
         /**
-         * 7. 이미지 업로드, 무상수거 감지 및 AI 분석
+         * 6. 이미지 업로드(자동 리사이징 압축 포함) 및 Vercel 서버 함수(/api/analyze) 연동
          */
         function handleImageUpload(event) {
             const file = event.target.files[0];
@@ -1112,20 +959,43 @@
                 return;
             }
 
+            // Vercel 서버리스 함수 페이로드 제한(4.5MB) 방지 및 빠른 분석을 위해 이미지 리사이징
             const reader = new FileReader();
             reader.onload = function(e) {
-                const dataUrl = e.target.result;
-                document.getElementById('wasteImagePreview').src = dataUrl;
-                document.getElementById('imageUploadPlaceholder').classList.add('hidden');
-                document.getElementById('imagePreviewBox').classList.remove('hidden');
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxDim = 1024;
+                    let width = img.width;
+                    let height = img.height;
 
-                const parts = dataUrl.split(',');
-                appState.imageMimeType = file.type;
-                appState.imageBase64 = parts[1];
-                updateStepperState();
+                    if (width > maxDim || height > maxDim) {
+                        if (width > height) {
+                            height = Math.round((height * maxDim) / width);
+                            width = maxDim;
+                        } else {
+                            width = Math.round((width * maxDim) / height);
+                            height = maxDim;
+                        }
+                    }
 
-                // 사진 업로드 시 즉시 AI 분석 실행
-                analyzeWaste();
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                    document.getElementById('wasteImagePreview').src = compressedDataUrl;
+                    document.getElementById('imageUploadPlaceholder').classList.add('hidden');
+                    document.getElementById('imagePreviewBox').classList.remove('hidden');
+
+                    appState.imageMimeType = 'image/jpeg';
+                    appState.imageBase64 = compressedDataUrl.split(',')[1];
+                    updateStepperState();
+
+                    analyzeWaste();
+                };
+                img.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
@@ -1146,7 +1016,6 @@
             updateStepperState();
         }
 
-        // [편의기능 2] 무상수거 가능 품목 실시간 감지
         function checkFreeApplianceKeyword(text) {
             const query = (text || '').toLowerCase();
             const isFreeTarget = FREE_APPLIANCE_KEYWORDS.some(kw => query.includes(kw));
@@ -1180,87 +1049,33 @@
             resultCard.classList.add('hidden');
             skeleton.classList.remove('hidden');
 
-            const geminiApiKey = localStorage.getItem(STORAGE_KEYS.GEMINI_KEY);
-
             try {
-                let analysisData = null;
+                // Vercel 서버리스 함수(/api/analyze) 호출
+                const response = await fetch('/api/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        description: desc,
+                        base64Image: appState.imageBase64,
+                        mimeType: appState.imageMimeType
+                    })
+                });
 
-                if (geminiApiKey) {
-                    analysisData = await callGeminiWasteClassifier(geminiApiKey, desc, appState.imageBase64, appState.imageMimeType);
+                if (response.ok) {
+                    const aiData = await response.json();
+                    skeleton.classList.add('hidden');
+                    renderAnalysisResult(aiData);
+                    return;
                 }
-
-                if (!analysisData) {
-                    // 자연스러운 스켈레톤 피드백을 위한 짧은 지연
-                    await new Promise(res => setTimeout(res, 650));
-                    analysisData = classifyWithWonjuCatalog(desc);
-                }
-
-                skeleton.classList.add('hidden');
-                renderAnalysisResult(analysisData);
-            } catch (error) {
-                skeleton.classList.add('hidden');
-                renderAnalysisResult(classifyWithWonjuCatalog(desc));
-            } finally {
-                btn.disabled = false;
-            }
-        }
-
-        async function callGeminiWasteClassifier(apiKey, description, base64Image, mimeType) {
-            const systemPrompt = `당신은 강원특별자치도 원주시 대형폐기물 배출 안내 AI입니다.
-사진과 설명을 분석해 JSON으로 응답하세요. 대형 폐가전(냉장고, 세탁기, 에어컨, TV 등)은 원형이 훼손되지 않은 경우 무상방문수거(0원) 대상임을 안내하세요.
-JSON 스키마:
-{
-  "category": "추정 품목명 및 규격",
-  "fee": "예상 수수료 (예: 4,000원 또는 0원 (무상수거))",
-  "guide": "원주시 기준 배출 방법 (2문장 이내)"
-}`;
-
-            const userParts = [
-                { text: description ? `설명: ${description}` : '첨부된 사진의 대형폐기물 품목, 원주시 예상 수수료, 배출 방법을 알려주세요.' }
-            ];
-
-            if (base64Image && mimeType) {
-                userParts.push({ inlineData: { mimeType: mimeType, data: base64Image } });
+            } catch (err) {
+                console.warn('서버 API 호출 실패, 내장 기준표 폴백 실행:', err);
             }
 
-            const payload = {
-                contents: [{ role: 'user', parts: userParts }],
-                systemInstruction: { parts: [{ text: systemPrompt }] },
-                generationConfig: {
-                    responseMimeType: 'application/json',
-                    responseSchema: {
-                        type: 'OBJECT',
-                        properties: {
-                            category: { type: 'STRING' },
-                            fee: { type: 'STRING' },
-                            guide: { type: 'STRING' }
-                        },
-                        required: ['category', 'fee', 'guide']
-                    }
-                }
-            };
-
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-
-            for (let attempt = 0; attempt < 3; attempt++) {
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                    const result = await response.json();
-                    const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
-                    if (text) {
-                        return { ...JSON.parse(text), source: 'Gemini AI 분석' };
-                    }
-                } catch (err) {
-                    if (attempt === 2) return null;
-                    await new Promise(res => setTimeout(res, Math.pow(2, attempt) * 1000));
-                }
-            }
-            return null;
+            // 로컬 테스트(file://) 환경이거나 서버 응답 실패 시 내장 기준표로 매끄럽게 폴백
+            await new Promise(res => setTimeout(res, 500));
+            skeleton.classList.add('hidden');
+            renderAnalysisResult(classifyWithWonjuCatalog(desc));
+            btn.disabled = false;
         }
 
         function classifyWithWonjuCatalog(description) {
@@ -1284,7 +1099,8 @@ JSON 스키마:
         }
 
         function renderAnalysisResult(data) {
-            document.getElementById('analysisSourceBadge').textContent = data.source;
+            document.getElementById('analyzeBtn').disabled = false;
+            document.getElementById('analysisSourceBadge').textContent = data.source || 'Gemini AI 분석';
             document.getElementById('resultCategoryName').textContent = data.category;
             document.getElementById('resultFee').textContent = data.fee;
             document.getElementById('resultGuide').textContent = data.guide;
@@ -1292,7 +1108,6 @@ JSON 스키마:
             document.getElementById('confirmItemName').value = data.category;
             document.getElementById('confirmItemFee').value = data.fee;
 
-            // AI 분석 결과에서도 폐가전 키워드가 감지되면 무상수거 배지 표시
             checkFreeApplianceKeyword(`${data.category} ${document.getElementById('wasteDescription').value}`);
 
             document.getElementById('analysisResultCard').classList.remove('hidden');
@@ -1301,7 +1116,7 @@ JSON 스키마:
         }
 
         /**
-         * 8. 신고 접수, 디지털 접수증 발급 및 내역 관리
+         * 7. 신고 접수, 디지털 접수증 발급 및 내역 관리
          */
         function submitWasteReport() {
             const locationMemo = document.getElementById('locationMemo').value.trim();
@@ -1354,7 +1169,6 @@ JSON 스키마:
                 localStorage.setItem(STORAGE_KEYS.REPORTS, JSON.stringify(reports));
             }
 
-            // 입력 폼 초기화
             document.getElementById('wasteDescription').value = '';
             document.getElementById('analysisResultCard').classList.add('hidden');
             document.getElementById('freeApplianceBanner').classList.add('hidden');
@@ -1365,7 +1179,6 @@ JSON 스키마:
             checkNearbyDuplicateReports(appState.lat, appState.lng);
             updateStepperState();
 
-            // [편의기능 4] 디지털 배출 신고 접수증 모달 표시
             openReceiptModal(newReport);
         }
 
@@ -1394,7 +1207,6 @@ JSON 스키마:
             switchTab('history');
         }
 
-        // 접수 내용 클립보드 복사 (document.execCommand 활용)
         function copyReceiptToClipboard() {
             const r = appState.latestReceipt;
             if (!r) return;
