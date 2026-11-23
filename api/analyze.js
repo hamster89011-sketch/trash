@@ -18,19 +18,23 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { description, base64Image, mimeType } = req.body || {};
+    const { description, base64Image, mimeType, csvHint } = req.body || {};
 
     if (!description && !base64Image) {
       return res.status(400).json({ error: '품목 설명 또는 사진 데이터가 필요합니다.' });
     }
 
+    const csvReferenceText = csvHint
+      ? `\n[원주시 공식 CSV 수수료표 일치 항목]\n- 품목/규격: ${csvHint.category}\n- 공식 수수료: ${csvHint.fee}\n- 동일 품목 규격 목록: ${(csvHint.relatedSpecs || []).map(s => `${s.spec}(${s.feeNum}원)`).join(', ')}\n위 공식 CSV 기준표 금액을 최우선으로 반영해 정확히 안내하세요.`
+      : '';
+
     const systemPrompt = `당신은 강원특별자치도 원주시 대형폐기물 배출 안내 AI입니다.
-사용자의 사진과 설명을 분석해 원주시 대형폐기물 수수료 기준에 맞춰 JSON으로만 응답하세요.
+사용자의 사진과 설명을 분석해 원주시 대형폐기물 수수료 기준에 맞춰 JSON으로만 응답하세요.${csvReferenceText}
 대형 폐가전(냉장고, 세탁기, 에어컨, TV 등)은 원형이 훼손되지 않은 경우 무상방문수거(0원) 대상임을 안내하세요.
 JSON 스키마:
 {
   "category": "추정 품목명 및 규격",
-  "fee": "예상 수수료 (예: 4,000원 또는 0원 (무상방문수거))",
+  "fee": "예상 수수료 (예: 20,000원)",
   "guide": "원주시 기준 배출 방법 (2문장 이내)"
 }`;
 
